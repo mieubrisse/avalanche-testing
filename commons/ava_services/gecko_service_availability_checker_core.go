@@ -12,9 +12,6 @@ import (
 // Implements ServiceAvailabilityCheckerCore
 type GeckoServiceAvailabilityCheckerCore struct{}
 
-// Set 20 second initial delay to allow the initial health check
-// func (g GeckoServiceAvailabilityCheckerCore) InitialDelay() time.Duration { return 20 * time.Second }
-
 func (g GeckoServiceAvailabilityCheckerCore) IsServiceUp(toCheck services.Service, dependencies []services.Service) bool {
 	// NOTE: we don't check the dependencies intentionally, because we don't need to - a Gecko service won't report itself
 	//  as up until its bootstrappers are up
@@ -24,11 +21,13 @@ func (g GeckoServiceAvailabilityCheckerCore) IsServiceUp(toCheck services.Servic
 	client := gecko_client.NewGeckoClient(jsonRpcSocket.GetIpAddr(), jsonRpcSocket.GetPort())
 	healthInfo, err := client.HealthApi().GetLiveness()
 	if err != nil {
-		// TODO increase log level when InitialDelay is set to a conservative value
-		logrus.Info(stacktrace.Propagate(err, "Error occurred in getting liveness info"))
+		logrus.Trace(stacktrace.Propagate(err, "Error occurred getting liveness info"))
 		return false
 	}
-	logrus.Infof("Service reported healthy: %v", healthInfo.Healthy)
+
+	if healthInfo.Healthy {
+		time.Sleep(time.Second)
+	}
 
 	return healthInfo.Healthy
 }

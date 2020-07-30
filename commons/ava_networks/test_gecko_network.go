@@ -74,7 +74,7 @@ type TestGeckoNetworkServiceConfig struct {
 	imageName      string
 	snowQuorumSize int
 	snowSampleSize int
-	cliArgs        map[string]string // CLI Args to pass directly to Gecko
+	additionalCLIArgs        map[string]string // CLI Args to pass directly to Gecko
 }
 
 func NewTestGeckoNetworkServiceConfig(
@@ -83,14 +83,14 @@ func NewTestGeckoNetworkServiceConfig(
 	imageName string,
 	snowQuorumSize int,
 	snowSampleSize int,
-	cliArgs map[string]string) *TestGeckoNetworkServiceConfig {
+	additionalCLIArgs map[string]string) *TestGeckoNetworkServiceConfig {
 	return &TestGeckoNetworkServiceConfig{
 		varyCerts:       varyCerts,
 		serviceLogLevel: serviceLogLevel,
 		imageName:       imageName,
 		snowQuorumSize:  snowQuorumSize,
 		snowSampleSize:  snowSampleSize,
-		cliArgs:         cliArgs,
+		additionalCLIArgs:         additionalCLIArgs,
 	}
 }
 
@@ -205,7 +205,7 @@ func (loader TestGeckoNetworkLoader) ConfigureNetwork(builder *networks.ServiceN
 			configParams.snowSampleSize,
 			configParams.snowQuorumSize,
 			loader.isStaking,
-			configParams.cliArgs,
+			configParams.additionalCLIArgs,
 			bootNodeIds,
 			certProvider,
 			configParams.serviceLogLevel,

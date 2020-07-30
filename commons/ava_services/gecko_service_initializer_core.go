@@ -35,7 +35,7 @@ type GeckoServiceInitializerCore struct {
 	snowSampleSize      int
 	snowQuorumSize      int
 	stakingTlsEnabled   bool
-	cliArgs             map[string]string
+	additionalCLIArgs             map[string]string
 	bootstrapperNodeIds []string
 	certProvider        cert_providers.GeckoCertProvider
 	logLevel            GeckoLogLevel
@@ -61,7 +61,7 @@ func NewGeckoServiceInitializerCore(
 	snowSampleSize int,
 	snowQuorumSize int,
 	stakingTlsEnabled bool,
-	cliArgs map[string]string,
+	additionalCLIArgs map[string]string,
 	bootstrapperNodeIds []string,
 	certProvider cert_providers.GeckoCertProvider,
 	logLevel GeckoLogLevel) *GeckoServiceInitializerCore {
@@ -75,7 +75,7 @@ func NewGeckoServiceInitializerCore(
 		snowSampleSize:      snowSampleSize,
 		snowQuorumSize:      snowQuorumSize,
 		stakingTlsEnabled:   stakingTlsEnabled,
-		cliArgs:             cliArgs,
+		additionalCLIArgs:             additionalCLIArgs,
 		bootstrapperNodeIds: bootstrapperIdsCopy,
 		certProvider:        certProvider,
 		logLevel:            logLevel,
@@ -172,7 +172,7 @@ func (core GeckoServiceInitializerCore) GetStartCommand(mountedFileFilepaths map
 
 	// Append additional CLI arguments
 	// These are added as is with no additional checking
-	for param, argument := range core.cliArgs {
+	for param, argument := range core.additionalCLIArgs {
 		commandList = append(commandList, fmt.Sprintf("--%s=%s", param, argument))
 	}
 

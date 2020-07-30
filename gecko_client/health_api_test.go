@@ -35,38 +35,6 @@ func TestGetLiveness(t *testing.T) {
 			nilError:        true,
 		},
 		// TODO fix health API to not error when parsing health check that contains an error
-		// {
-		// 	resultString: `{
-		//       "jsonrpc":"2.0",
-		//          "result":{
-		//             "checks":{
-		//                "chains.default.bootstrapped":{
-		//                   "message":"didn't run yet",
-		//                   "error":{
-		//                      "message":"didn't run yet"
-		//                   },
-		//                   "timestamp":"2020-07-28T14:33:48.140525-04:00",
-		//                   "contiguousFailures":1,
-		//                   "timeOfFirstFailure":"2020-07-28T14:33:48.140525-04:00"
-		//                },
-		//                "network.validators.heartbeat":{
-		//                   "message":"didn't run yet",
-		//                   "error":{
-		//                      "message":"didn't run yet"
-		//                   },
-		//                   "timestamp":"2020-07-28T14:33:48.140501-04:00",
-		//                   "contiguousFailures":1,
-		//                   "timeOfFirstFailure":"2020-07-28T14:33:48.140501-04:00"
-		//                }
-		//          },
-		//          "healthy":false
-		//       },
-		//       "id":1
-		//    }`,
-		// 	expectedChecks:  2,
-		// 	expectedHealthy: false,
-		// 	nilError:        true,
-		// },
 	}
 
 	for _, test := range tests {
