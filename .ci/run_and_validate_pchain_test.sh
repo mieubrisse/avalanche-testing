@@ -6,7 +6,7 @@ ROOT_DIRPATH="$(dirname "${SCRIPT_DIRPATH}")"
 aws ecr get-login-password --region "${AWS_DEFAULT_REGION}" | docker login --username AWS --password-stdin 964377072876.dkr.ecr.us-east-1.amazonaws.com
 
 DEFAULT_CONTROLLER_TAG="kurtosistech/ava-e2e-tests_controller"
-DEFAULT_GECKO_IMAGE="kurtosistech/gecko:latest"
+DEFAULT_GECKO_IMAGE="964377072876.dkr.ecr.us-east-1.amazonaws.com/gecko:latest"
 BYZANTINE_IMAGE="964377072876.dkr.ecr.us-east-1.amazonaws.com/gecko-byzantine:latest"
 
 docker pull "${BYZANTINE_IMAGE}"

@@ -9,6 +9,8 @@
 * Implement a 10-second HTTP request timeout in the Gecko client
 * Upgraded to Kurtosis that allows the setup buffer to be configured at a per-test level, and gave a generous setup buffer for as long as the Gecko availability checker core has a `time.Sleep` in it
 * Rename HighLevelGeckoClient to RpcWorkflowRunner and move to ava_testsuite package
+* Add conflicting transactions vertex test
+* Switch to using AvaLabs Docker registry for gecko and gecko-byzantine images
 
 # 0.6.0
 * Use Kurtosis version that allows the user to configure network width
