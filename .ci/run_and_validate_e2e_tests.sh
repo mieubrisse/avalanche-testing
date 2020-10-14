@@ -24,7 +24,7 @@ E2E_TEST_COMMAND="${ROOT_DIRPATH}/scripts/build_and_run.sh"
 CUSTOM_ENV_VARS_JSON_ARG="CUSTOM_ENV_VARS_JSON={\"AVALANCHE_IMAGE\":\"${AVALANCHE_IMAGE}\",\"BYZANTINE_IMAGE\":\"${BYZANTINE_IMAGE}\"}"
 
 return_code=0
-if ! bash "${E2E_TEST_COMMAND}" all --env "${CUSTOM_ENV_VARS_JSON_ARG}" --env "PARALLELISM=${PARALLELISM}"; then
+if ! bash "${E2E_TEST_COMMAND}" all --env "${CUSTOM_ENV_VARS_JSON_ARG}" --env "PARALLELISM=${PARALLELISM}" --env "CLIENT_ID=${CLIENT_ID}" --env "CLIENT_SECRET=${CLIENT_SECRET}"; then
     echo "Avalanche E2E tests failed"
     return_code=1
 else

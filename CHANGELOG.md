@@ -1,5 +1,6 @@
 # TBD
 * Small bugfix in `build_and_run.sh`, so it won't silently error on missing an argument
+* Prepared for Kurtosis version with auth
 
 # 0.10.0
 * Upgraded to Kurtosis 1.0

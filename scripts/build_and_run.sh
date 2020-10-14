@@ -5,9 +5,11 @@ script_dirpath="$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd)"
 SUITE_IMAGE="avaplatform/avalanche-testing"
 AVALANCHE_IMAGE="avaplatform/avalanchego:v1.0.0"
 BYZANTINE_IMAGE="avaplatform/avalanche-byzantine:v0.1.1"
-KURTOSIS_CORE_CHANNEL="master"
+# TODO CHANGE THIS BACK TO MASTER BEFORE MERGING!!!
+KURTOSIS_CORE_CHANNEL="develop"
 INITIALIZER_IMAGE="kurtosistech/kurtosis-core_initializer:${KURTOSIS_CORE_CHANNEL}"
 API_IMAGE="kurtosistech/kurtosis-core_api:${KURTOSIS_CORE_CHANNEL}"
+KURTOSIS_DIRPATH="${HOME}/.kurtosis"
 
 # As of 2020-09-16, if we run with higher parallelism then we start to get timeouts (maybe worth upping the timeouts??)
 PARALLELISM=2
@@ -84,6 +86,7 @@ if "${do_build}"; then
 fi
 
 if "${do_run}"; then
+    mkdir -p "${KURTOSIS_DIRPATH}"
     suite_execution_volume="avalanche-test-suite_${docker_tag}_$(date +%s)"
     docker volume create "${suite_execution_volume}"
 
@@ -93,6 +96,7 @@ if "${do_run}"; then
     echo "${custom_env_vars_json_flag}"
     docker run \
         --mount "type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock" \
+        --mount "type=bind,source=${KURTOSIS_DIRPATH},target=/kurtosis" \
         --mount "type=volume,source=${suite_execution_volume},target=/suite-execution" \
         --env "${custom_env_vars_json_flag}" \
         --env "TEST_SUITE_IMAGE=${SUITE_IMAGE}:${docker_tag}" \
